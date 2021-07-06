@@ -8,3 +8,15 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+/.idea/.gitignore
+/.idea/modules.xml
+/.idea/php.xml
+/.idea/project.iml
+/.idea/vcs.xml
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
