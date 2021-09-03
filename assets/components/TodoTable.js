@@ -48,12 +48,12 @@ function TodoTable(){
                                         InputProps={{
                                             endAdornment:
                                                 <Fragment>
-                                                    <IconButton><CloseIcon onClick={() => setEditIsShown(false)} /></IconButton>
-                                                    <IconButton>
-                                                        <DoneIcon onClick={() => {
-                                                            context.updateTodo({id: todo.id, name: editTodo});
-                                                            setEditIsShown(false);
-                                                        }}/>
+                                                    <IconButton onClick={() => setEditIsShown(false)}><CloseIcon/></IconButton>
+                                                    <IconButton  onClick={() => {
+                                                        context.updateTodo({id: todo.id, name: editTodo});
+                                                        setEditIsShown(false);
+                                                    }}>
+                                                        <DoneIcon/>
                                                     </IconButton>
                                                 </Fragment>
                                         }}
@@ -63,8 +63,8 @@ function TodoTable(){
 
                             </TableCell>
                             <TableCell align={"right"}>
-                                <IconButton><EditIcon onClick={() => {setEditIsShown(todo.id); setEditTodo(todo.name)}}/></IconButton>
-                                <IconButton><DeleteIcon onClick={() => {setDeleteConfirmationIsShown(true); setTodoToBeDelete(todo)}}/></IconButton>
+                                <IconButton onClick={() => {setEditIsShown(todo.id); setEditTodo(todo.name)}}><EditIcon/></IconButton>
+                                <IconButton onClick={() => {setDeleteConfirmationIsShown(true); setTodoToBeDelete(todo)}}><DeleteIcon/></IconButton>
                             </TableCell>
                         </TableRow>
                     ))}

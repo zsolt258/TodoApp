@@ -5,15 +5,13 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Site
- *
  * @ORM\Table(name="todos")
  * @ORM\Entity(repositoryClass="App\Repository\TodoRepository")
  */
 class Todo
 {
     /**
-     * @var
+     * @var integer
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
@@ -48,5 +46,13 @@ class Todo
     public function toArray(): array
     {
         return ['id' => $this->id, 'name' => $this->name];
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 }

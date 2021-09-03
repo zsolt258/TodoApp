@@ -1,7 +1,6 @@
 import React, {Component, createContext} from 'react';
 import axios from "axios";
 
-
 export const TodoContext = createContext();
 
 class TodoContextProvider extends Component {
@@ -16,11 +15,14 @@ class TodoContextProvider extends Component {
 
     createTodo(event, todo){
         event.preventDefault();
-        let originalTodos = [...this.state.todos];
-        originalTodos.push(todo);
-        this.setState({
-            todos: originalTodos,
-        });
+        console.log(todo);
+        axios.post('/api/todo/create', todo)
+            .then(response => {
+                let originalTodos = [...this.state.todos];
+                originalTodos.push(response.data.todo);
+                this.setState({todos: originalTodos});
+            })
+            .catch(error => { console.error(error); })
     }
 
     readTodo(){
@@ -36,19 +38,28 @@ class TodoContextProvider extends Component {
     }
 
     deleteTodo(data){
-        let originalTodos = [...this.state.todos];
-        let todo = originalTodos.find(todo => todo.id === data.id);
 
-        originalTodos.splice(originalTodos.indexOf(todo), 1);
-
-        this.setState({todos: originalTodos});
+        axios.delete('api/todo/delete/'+ data.id)
+            .then(response => {
+                let originalTodos = [...this.state.todos];
+                let todo = originalTodos.find(todo => todo.id === data.id);
+                originalTodos.splice(originalTodos.indexOf(todo), 1);
+                this.setState({todos: originalTodos});
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     updateTodo(data){
-        let originalTodos = [...this.state.todos];
-        let todo = originalTodos.find(todo => todo.id === data.id);
-        todo.name = data.name;
-        this.setState({todos: originalTodos});
+        axios.put('/api/todo/update/' + data.id, data)
+            .then(response => {
+                let originalTodos = [...this.state.todos];
+                let todo = originalTodos.find(todo => todo.id === data.id);
+                todo.name = data.name;
+                this.setState({todos: originalTodos});
+            })
+            .catch(error => {console.error(error)})
     }
 
     render() {
